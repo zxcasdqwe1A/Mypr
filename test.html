@@ -1,0 +1,42 @@
+cat > test.html << 'EOF'
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تجربة الشريط</title>
+<style>
+body{font-family:Arial;background:#eff6ff;padding:20px}
+.marquee-box{background:#fff;border-radius:18px;padding:14px}
+.marquee{overflow:hidden;direction:ltr}
+.track{display:flex;gap:12px;width:max-content;align-items:center}
+.logo-item{background:#fff;border:1px solid #eee;border-radius:14px;padding:6px 14px;display:flex;align-items:center;justify-content:center;height:60px;min-width:140px;flex-shrink:0}
+.logo-item img{height:38px;width:auto;max-width:130px;object-fit:contain;display:block}
+</style>
+</head>
+<body>
+<h2 style="text-align:center">كل قنواتك المفضلة في مكان واحد</h2>
+<div class="marquee-box">
+  <div class="marquee"><div class="track" id="track">
+    <div class="logo-item"><img src="netflix.jpg"></div>
+    <div class="logo-item"><img src="bein.jpg"></div>
+    <div class="logo-item"><img src="watchit.jpg"></div>
+    <div class="logo-item"><img src="art.jpg"></div>
+    <div class="logo-item"><img src="natgeo.jpg"></div>
+  </div></div>
+</div>
+<script>
+const track = document.getElementById('track');
+track.innerHTML = track.innerHTML + track.innerHTML + track.innerHTML;
+let x = -track.scrollWidth/3;
+function move(){
+  x += 0.5;
+  let oneSet = track.scrollWidth/3;
+  if(x>=0) x=-oneSet;
+  track.style.transform='translateX('+x+'px)';
+  requestAnimationFrame(move);
+}
+move();
+</script>
+</body>
+</html>
+EOF
